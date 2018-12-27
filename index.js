@@ -34,9 +34,7 @@ mf.comp.MenuItem = class extends mf.Component {
             super.initDomConts();
             
             let fcs_evt = (itm, flg) => {
-                try {
-console.log("focus");
- itm.select(flg); } catch (e) {
+                try { itm.select(flg); } catch (e) {
                     console.error(e.stack);
                     throw e;
                 }
