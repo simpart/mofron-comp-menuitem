@@ -4,7 +4,6 @@
  * @author simpart
  */
 const mf = require('mofron');
-const Focus = require('mofron-event-focus');
 
 mf.comp.MenuItem = class extends mf.Component {
     
@@ -24,27 +23,6 @@ mf.comp.MenuItem = class extends mf.Component {
         }
     }
     
-    /**
-     * initialize dom contents
-     * 
-     * @npte private method
-     */
-    initDomConts () {
-        try {
-            super.initDomConts();
-            
-            let fcs_evt = (itm, flg) => {
-                try { itm.select(flg); } catch (e) {
-                    console.error(e.stack);
-                    throw e;
-                }
-            }
-            this.event([new Focus(fcs_evt)]);
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
     /**
      * set/unset select style
      *
