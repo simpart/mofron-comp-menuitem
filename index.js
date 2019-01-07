@@ -30,18 +30,41 @@ mf.comp.MenuItem = class extends mf.Component {
      */
     select (flg) {
         try {
-            let eff = this.effect();
-            for (let eidx in eff) {
-                eff[eidx].execute(flg);
-            }
+            let style_func = () => {
+                try {
+                    let style = (true === flg) ? this.selectStyle() : this.unSelectStyle();
+                    for (let sidx in style) {
+                        this.style(style[sidx]);
+                    }    
+                } catch (e) {
+                    console.error(e.stack);
+                    throw e;
+                }
+            };
+            
+            /* execute effect of this component */
+            mf.func.execEffect(this, flg, style_func);
+            
             let chd = this.getChild(true);
             for (let cidx in chd) {
-                eff = chd[cidx].effect();
-                for (let ceidx in eff) {
-                    eff[ceidx].execute(flg);
-                }
+                /* execute effect of child component */
+                mf.func.execEffect(chd[cidx], flg);
             }
         } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    selectStyle (prm) {
+        try { return this.arrayMember('selectStyle', 'object', prm); } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    unSelectStyle (prm) {
+        try { return this.arrayMember('unSelectStyle', 'object', prm); } catch (e) {
             console.error(e.stack);
             throw e;
         }
